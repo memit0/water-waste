@@ -21,6 +21,7 @@ if not waterist.empty:
     with engine.connect() as connection:
         query_result = connection.execute(db.text("SELECT * FROM waterist;")).fetchall()
         query_df = pd.DataFrame(query_result, columns=waterist.columns)
-        print(query_df[['Ilce'] + [col for col in query_df.columns if col != 'Ilce']])
+        table = query_df[['Ilce'] + [col for col in query_df.columns if col != 'Ilce']]
+        print(table)
 else:
     print("No data available.")
