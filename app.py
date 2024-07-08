@@ -26,7 +26,7 @@ def get_water_usage():
     try:
         df = fetch_water_data(url)
         records = df.to_dict(orient='records')
-        return jsonify(records)
+        return render_template('water.html', records=records)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
