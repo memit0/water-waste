@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 import requests
+import git
 import pandas as pd
 
 app = Flask(__name__)
@@ -9,6 +10,16 @@ CORS(app)
 @app.route('/', methods=['GET'])
 def home_page():
     return render_template('home.html', subtitle='Home Page', text='This is the home page')
+
+@app.route("/update_server", methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('/home/istwaterusage/water-waste')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong event type', 400
 
 
 def fetch_water_data(url):
