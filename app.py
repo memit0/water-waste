@@ -1,7 +1,7 @@
+import git
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 import requests
-import git
 import pandas as pd
 
 app = Flask(__name__)
